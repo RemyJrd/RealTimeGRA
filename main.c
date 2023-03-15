@@ -1,20 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "functions.c"
+#include "functions.h"
 
     //TODO: Verification input
 
 void FP(FILE* file, int maxsched, int thread) {
     int test;
-    fseek(file, 2, SEEK_SET);
-    fscanf(file, "%d", &test);
-    printf("test: %d \n", test);
+    //TODO
 }
 
 void EDF(FILE* file, int maxsched, int thread) {
     int test;
-    fseek(file, 2, SEEK_SET);
-    fscanf(file, "%d", &test);
-    printf("test: %d \n", test);
+    //TODO
 }
 
 int main(int argc, char** argv) {
@@ -36,6 +34,9 @@ int main(int argc, char** argv) {
     fscanf(file, "%d", &thread);
 
     // Task preparation
+    for (int i = 0; i < thread; i++) {
+        
+    }
 
     // Algorithm management
     if (strcmp(algorithm, "FP")) {
