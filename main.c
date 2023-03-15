@@ -3,12 +3,18 @@
 
     //TODO: Verification input
 
-int FP(FILE* file, int maxsched) {
-
+void FP(FILE* file, int maxsched, int thread) {
+    int test;
+    fseek(file, 2, SEEK_SET);
+    fscanf(file, "%d", &test);
+    printf("test: %d \n", test);
 }
 
-int EDF(FILE* file, int maxsched) {
-
+void EDF(FILE* file, int maxsched, int thread) {
+    int test;
+    fseek(file, 2, SEEK_SET);
+    fscanf(file, "%d", &test);
+    printf("test: %d \n", test);
 }
 
 int main(int argc, char** argv) {
@@ -25,20 +31,23 @@ int main(int argc, char** argv) {
     FILE * file;
     file = fopen(filename, "r");
 
+    // Max Schedulling management
+    int thread;
+    fscanf(file, "%d", &thread);
+
+    // Task preparation
+
     // Algorithm management
     if (strcmp(algorithm, "FP")) {
         printf("Je suis en EDF \n");
-        EDF(file, maxsched);
+        EDF(file, maxsched, thread);
     } 
     else 
     {
         printf("Je suis en FP \n");
-        FP(file, maxsched);
+        FP(file, maxsched, thread);
     }
 
-    // Max Schedulling management
-    int thread;
-    fscanf(file, "%d", &thread);
     
     
 system("pause");
