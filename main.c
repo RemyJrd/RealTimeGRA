@@ -13,6 +13,10 @@
 // puis calcul beta
 // calcul busy period premiere racine positive wt... itération
 // sup h(T)/t calcul
+// ---
+// TD 2 Analyse edf poussée
+// basé sur prédicat (non temps réponse)
+// calcul aplha(charge)  gamma plus petit que 1, alors jeu de charge faisable si on peux pas conclure, alors beta, calcul de lambda calcul de h(t)/t point discontiune, sur les échéances de taches (travail avec modulo)
 
 
 int main(int argc, char** argv) {
@@ -54,14 +58,14 @@ int main(int argc, char** argv) {
     if (strcmp(algorithm, "FP")) 
     {
         
-        SortedJobList EDFlist = create_empty_list();
+        SortedJobList list = create_empty_list();
         for (int i = 0; i< thread; i++)
         {
-            add_job(&EDFlist, (i + 1), CPU[i].C, CPU[i].D);
+            add_job(&list, (i + 1), CPU[i].C, CPU[i].D);
         }
         printf("Voici le tableau en EDF : \n");
-        EDF(&EDFlist, maxsched);
-        free_list(&EDFlist);
+        EDF(&list, maxsched);
+        free_list(&list);
     } 
     else if (strcmp(algorithm, "EDF"))
     {
