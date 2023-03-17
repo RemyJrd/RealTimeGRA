@@ -1,19 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "functions.c"
-#include "functions.h"
+#include "realtime.c"
+#include "realtime.h"
 
-    //TODO: Verification input
-
-void FP(FILE* file, int maxsched, int thread) {
-    int test;
-    //TODO
-}
-
-void EDF(FILE* file, int maxsched, int thread) {
-    int test;
-    //TODO
-}
+//TODO: Partie 2:
+// charge 
+// condition
+// busy period
+// revoir ce qui as été fait en TP2 par mail
+// gamma, lambda, 
+// conditions nécessaire et suffisante
+// puis calcul beta
+// calcul busy period premiere racine positive wt... itération
+// sup h(T)/t calcul
 
 int main(int argc, char** argv) {
 
@@ -26,11 +25,22 @@ int main(int argc, char** argv) {
     printf("Max Schedulling: %d \n", maxsched);
 
     // Filename management
+    int thread;
     FILE * file;
     file = fopen(filename, "r");
+    if(file != NULL)
+    {
+        fscanf(file, "%d", &thread);
+
+    }
+    else
+    {
+        printf("Ouverture impossible du fichier %s", filename);
+        exit(1);
+    }
 
     // Max Schedulling management
-    int thread;
+    //TODO: S'assurer de la chaine de caractere correcte
     fscanf(file, "%d", &thread);
 
     // Task preparation
@@ -39,14 +49,20 @@ int main(int argc, char** argv) {
     }
 
     // Algorithm management
-    if (strcmp(algorithm, "FP")) {
-        printf("Je suis en EDF \n");
+    if (strcmp(algorithm, "FP")) 
+    {
+        printf("Voici le tableau en EDF : \n");
         EDF(file, maxsched, thread);
+    } 
+    else if (strcmp(algorithm, "EDF"))
+    {
+        printf("Voici le tableau en FP : \n");
+        FP(file, maxsched, thread);
     } 
     else 
     {
-        printf("Je suis en FP \n");
-        FP(file, maxsched, thread);
+        printf("Erreur: Algorithme non reconnu");
+        return 1;
     }
 
     
