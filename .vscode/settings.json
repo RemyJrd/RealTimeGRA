@@ -35,6 +35,10 @@
   ],
   "C_Cpp_Runner.useAddressSanitizer": false,
   "files.associations": {
-    "string.h": "c"
+    "string.h": "c",
+    "realtime.h": "c",
+    "sorted_job_list.h": "c",
+    "stdlib.h": "c",
+    "stdio.h": "c"
   }
 }

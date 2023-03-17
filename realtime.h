@@ -1,6 +1,6 @@
 #ifndef STRUCT_H
 #define STRUCT_H
-
+#include "sorted_job_list.h"
 typedef struct scheduling
 {
   int C;
@@ -8,7 +8,7 @@ typedef struct scheduling
   int T;
 }scheduling;
 
-void FP(int nbTache, int n, scheduling *systeme);
+void FP(scheduling *CPU, int maxsched, int thread);
 void EDF(SortedJobList *job_list, int t);
 
 #endif
