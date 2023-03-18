@@ -4,6 +4,13 @@
 #include "realtime.h"
 #include "sorted_job_list.h"
 
+double calculate_load(scheduling *CPU, int thread) {
+    double load = 0.0;
+    for (int i = 0; i < thread; i++) {
+        load += (double) CPU[i].C / (double) CPU[i].T;
+    }
+    return load;
+}
 
 void FP(scheduling *CPU, int maxsched, int thread) 
 {
@@ -70,6 +77,5 @@ void EDF(SortedJobList *job_list, int thread) {
         printf("%d", schedule_first(&joblist));
         i++;
     }
-
-    //TODO
 }
+

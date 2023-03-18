@@ -4,7 +4,7 @@
 #include "sorted_job_list.h"
 
 //TODO: Partie 2:
-// charge 
+// charge DONE
 // condition
 // busy period
 // revoir ce qui as été fait en TP2 par mail
@@ -15,9 +15,9 @@
 // sup h(T)/t calcul
 // ---
 // TD 2 Analyse edf poussée
-// basé sur prédicat (non temps réponse)
+// basé sur prédicat (non temQps réponse)
 // calcul aplha(charge)  gamma plus petit que 1, alors jeu de charge faisable si on peux pas conclure, alors beta, calcul de lambda calcul de h(t)/t point discontiune, sur les échéances de taches (travail avec modulo)
-
+// dans file 2.txt 
 
 int main(int argc, char** argv) {
 
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
 
     // Algorithm management
     //TODO: Change condition
-    if (strcmp(algorithm, "FP")) 
+    if (strcmp(algorithm, "FP") == 0) 
     {
         
         SortedJobList list = create_empty_list();
@@ -63,14 +63,22 @@ int main(int argc, char** argv) {
         {
             add_job(&list, (i + 1), CPU[i].C, CPU[i].D);
         }
-        printf("Voici le tableau en EDF : \n");
+        printf("Voici le tableau en FP : \n");
         EDF(&list, maxsched);
         free_list(&list);
     } 
-    else if (strcmp(algorithm, "EDF"))
+    else if (strcmp(algorithm, "EDF") == 0)
     {
-        printf("Voici le tableau en FP : \n");
-        FP(CPU, maxsched, thread);
+        double load = calculate_load(CPU, thread);
+        printf("System Load: %lf \n", load);
+        printf("Voici le tableau en EDF : \n");
+        SortedJobList list = create_empty_list();
+        for (int i = 0; i < thread; i++) 
+        {
+            add_job(&list, (i + 1), CPU[i].C, CPU[i].D);
+        }
+        EDF(&list, maxsched);
+        free_list(&list);
     } 
     else 
     {
@@ -78,6 +86,5 @@ int main(int argc, char** argv) {
         return 1;
     }
 free(CPU);
-system("pause");
 return 0;
 }

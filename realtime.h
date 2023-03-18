@@ -10,5 +10,6 @@ typedef struct scheduling
 
 void FP(scheduling *CPU, int maxsched, int thread);
 void EDF(SortedJobList *job_list, int t);
+double calculate_load(scheduling* CPU, int thread);
 
 #endif
