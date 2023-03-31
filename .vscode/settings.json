@@ -39,6 +39,7 @@
     "realtime.h": "c",
     "sorted_job_list.h": "c",
     "stdlib.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "stdbool.h": "c"
   }
 }
