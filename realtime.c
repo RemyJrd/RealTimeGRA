@@ -91,7 +91,6 @@ void EDF(SortedJobList *job_list, int thread, scheduling *CPU) {
         printf("%d", schedule_first(&joblist));
         i++;
     }
-<<<<<<< HEAD
 
    free(CPU);
 }
@@ -140,7 +139,5 @@ float busy_period = *W + B;
 
     printf("Faisable en EDF\n");
     return 1;
-=======
->>>>>>> 48ab77060ef3164b95d45842f5fc4c9c835bab38
 }
 
