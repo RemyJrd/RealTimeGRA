@@ -37,7 +37,6 @@ int main(int argc, char** argv) {
     }
 
     // Algorithm management
-    //TODO: Change condition
     if (strcmp(algorithm, "FP"))
     {
 
