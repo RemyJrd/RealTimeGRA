@@ -9,7 +9,8 @@ typedef struct scheduling
 }scheduling;
 
 void FP(scheduling *CPU, int maxsched, int thread);
-void EDF(SortedJobList *job_list, int t);
-double calculate_load(scheduling* CPU, int thread);
+void EDF(SortedJobList *job_list, int thread, scheduling *CPU);
+void compute_parameters(scheduling *CPU, int thread, float *U, float *D, float *W);
+int is_schedulable(scheduling *CPU, int thread, float *U, float *D, float *W);
 
 #endif

@@ -1,34 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "realtime.h"
 #include "sorted_job_list.h"
 
-//TODO: Partie 2:
-// charge DONE
-// condition
-// busy period
-// revoir ce qui as été fait en TP2 par mail
-// gamma, lambda, 
-// conditions nécessaire et suffisante
-// puis calcul beta
-// calcul busy period premiere racine positive wt... itération
-// sup h(T)/t calcul
-// ---
-// TD 2 Analyse edf poussée
-// basé sur prédicat (non temQps réponse)
-// calcul aplha(charge)  gamma plus petit que 1, alors jeu de charge faisable si on peux pas conclure, alors beta, calcul de lambda calcul de h(t)/t point discontiune, sur les échéances de taches (travail avec modulo)
-// dans file 2.txt 
-
 int main(int argc, char** argv) {
-
     const char* filename = argv[1];
     const char* algorithm = argv[2];
     int maxsched = atoi(argv[3]);
     scheduling *CPU;
 
-    printf("filename: %s \n", filename);
-    printf("Choosen Algorithm: %s \n", algorithm);
-    printf("Max Schedulling: %d \n", maxsched);
+    printf("filename: %s \n\n", filename);
+
+    printf("Choosen Algorithm: %s \n\n", algorithm);
+    printf("Max Schedulling: %d \n\n", maxsched);
 
     // Filename and Schedulling management
     int thread;
@@ -36,55 +21,52 @@ int main(int argc, char** argv) {
     file = fopen(filename, "r");
     if(file != NULL)
     {
-        printf("Fichier bien ouvert");
         fscanf(file, "%d", &thread);
-        printf("Nombre de thread: %d \n", thread);
+        printf("There is %d threads in the file, the file is composed of :\n", thread);
         CPU = malloc(sizeof(scheduling) * thread);
-        printf("Le fichier ouvert se compose de : \n");
-        for (int i = 0; i < thread; i++) 
+        for (int i = 0; i < thread; i++)
         {
             fscanf(file, "%d %d %d", &CPU[i].C, &CPU[i].D, &CPU[i].T);
-            printf("Thread n°%d: %d %d %d \n", i+1, CPU[i].C, CPU[i].D, CPU[i].T);
+            printf("Thread %d: %d %d %d \n", i+1, CPU[i].C, CPU[i].D, CPU[i].T);
         }
     }
     else
     {
-        printf("Ouverture impossible du fichier %s", filename);
+        printf("Can't opend the file %s \n", filename);
         exit(1);
     }
 
     // Algorithm management
     //TODO: Change condition
-    if (strcmp(algorithm, "FP") == 0) 
+    if (strcmp(algorithm, "FP"))
     {
-        
+
         SortedJobList list = create_empty_list();
         for (int i = 0; i< thread; i++)
         {
             add_job(&list, (i + 1), CPU[i].C, CPU[i].D);
         }
-        printf("Voici le tableau en FP : \n");
-        EDF(&list, maxsched);
+        printf("\n===========================================================================\n");
+        printf("\n Here is the EDF array : \n\n");
+        printf("|");
+        EDF(&list, maxsched, CPU);
+        printf("\n===========================================================================\n");
         free_list(&list);
-    } 
-    else if (strcmp(algorithm, "EDF") == 0)
+    }
+    else if (strcmp(algorithm, "EDF"))
     {
-        double load = calculate_load(CPU, thread);
-        printf("System Load: %lf \n", load);
-        printf("Voici le tableau en EDF : \n");
-        SortedJobList list = create_empty_list();
-        for (int i = 0; i < thread; i++) 
-        {
-            add_job(&list, (i + 1), CPU[i].C, CPU[i].D);
-        }
-        EDF(&list, maxsched);
-        free_list(&list);
-    } 
-    else 
+        printf("\n===========================================================================\n");
+        printf("\n Here is the FP array : \n\n");
+        printf("|");
+        FP(CPU, maxsched, thread);
+        printf("\n===========================================================================\n");
+    }
+    else
     {
         printf("Erreur: Algorithme non reconnu");
         return 1;
     }
 free(CPU);
+system("pause");
 return 0;
 }
