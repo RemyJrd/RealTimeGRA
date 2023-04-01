@@ -4,6 +4,22 @@
 #include "realtime.h"
 #include "sorted_job_list.h"
 
+//TODO: Partie 2:
+// charge 
+// condition
+// busy period
+// revoir ce qui as été fait en TP2 par mail
+// gamma, lambda, 
+// conditions nécessaire et suffisante
+// puis calcul beta
+// calcul busy period premiere racine positive wt... itération
+// sup h(T)/t calcul
+// ---
+// TD 2 Analyse edf poussée
+// basé sur prédicat (non temps réponse)
+// calcul aplha(charge)  gamma plus petit que 1, alors jeu de charge faisable si on peux pas conclure, alors beta, calcul de lambda calcul de h(t)/t point discontiune, sur les échéances de taches (travail avec modulo)
+
+
 int main(int argc, char** argv) {
     const char* filename = argv[1];
     const char* algorithm = argv[2];
@@ -37,6 +53,7 @@ int main(int argc, char** argv) {
     }
 
     // Algorithm management
+    //TODO: Change condition
     if (strcmp(algorithm, "FP"))
     {
 
@@ -45,22 +62,16 @@ int main(int argc, char** argv) {
         {
             add_job(&list, (i + 1), CPU[i].C, CPU[i].D);
         }
-        printf("\n===========================================================================\n");
-        printf("\n Here is the EDF array : \n\n");
-        printf("|");
-        EDF(&list, maxsched, CPU);
-        printf("\n===========================================================================\n");
+        printf("Voici le tableau en EDF : \n");
+        EDF(&list, maxsched);
         free_list(&list);
-    }
+    } 
     else if (strcmp(algorithm, "EDF"))
     {
-        printf("\n===========================================================================\n");
-        printf("\n Here is the FP array : \n\n");
-        printf("|");
+        printf("Voici le tableau en FP : \n");
         FP(CPU, maxsched, thread);
-        printf("\n===========================================================================\n");
-    }
-    else
+    } 
+    else 
     {
         printf("Erreur: Algorithme non reconnu");
         return 1;

@@ -4,6 +4,13 @@
 #include "realtime.h"
 #include "sorted_job_list.h"
 
+double calculate_load(scheduling *CPU, int thread) {
+    double load = 0.0;
+    for (int i = 0; i < thread; i++) {
+        load += (double) CPU[i].C / (double) CPU[i].T;
+    }
+    return load;
+}
 
 
 void FP(scheduling *CPU, int maxsched, int thread)
@@ -84,6 +91,7 @@ void EDF(SortedJobList *job_list, int thread, scheduling *CPU) {
         printf("%d", schedule_first(&joblist));
         i++;
     }
+<<<<<<< HEAD
 
    free(CPU);
 }
@@ -132,4 +140,7 @@ float busy_period = *W + B;
 
     printf("Faisable en EDF\n");
     return 1;
+=======
+>>>>>>> 48ab77060ef3164b95d45842f5fc4c9c835bab38
 }
+
