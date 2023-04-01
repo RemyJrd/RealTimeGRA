@@ -14,7 +14,7 @@ void add_job(SortedJobList * job_list, int i, int c, int d){
 	}
 
 	j->id=i;
-	j->rc=c;dgdrgdr
+	j->rc=c;
 	j->next=NULL;
 
 	/* Si liste est vide, la liste devient le job */

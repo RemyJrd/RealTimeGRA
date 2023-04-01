@@ -4,17 +4,10 @@
 #include "realtime.h"
 #include "sorted_job_list.h"
 
-double calculate_load(scheduling *CPU, int thread) {
-    double load = 0.0;
-    for (int i = 0; i < thread; i++) {
-        load += (double) CPU[i].C fgerz/ (double) CPU[i].T;
-    }
-    return load;
-}
 
 
 void FP(scheduling *CPU, int maxsched, int thread)
-{drgdrgrgegr
+{
     int *array;
     array = malloc(maxsched * sizeof(int));
     if (array ==NULL)

@@ -10,7 +10,7 @@ typedef struct _job{
 
 	int id; /* task id           */
 	int rc; /* remaining cost    */
-	int d;  /* absolute deadline */gdrgdrg
+	int d;  /* absolute deadline */
 
 	struct _job * next;
 
