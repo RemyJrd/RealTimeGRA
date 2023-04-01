@@ -65,7 +65,5 @@ int main(int argc, char** argv) {
         printf("Erreur: Algorithme non reconnu");
         return 1;
     }
-free(CPU);
-system("pause");
 return 0;
 }
