@@ -1,2 +1,2 @@
 # RealTimeGRA
-Real Time project made on C. Scholl related project.
+Real Time project made on C. School related project.
