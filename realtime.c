@@ -48,7 +48,7 @@ void FP(scheduling *CPU, int maxsched, int thread)
 	printf("\n");
 	free(array);
     }
-    //TOD
+    
 
 void EDF(SortedJobList *job_list, int thread, scheduling *CPU) {
     int i = 1;
