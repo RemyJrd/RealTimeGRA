@@ -69,20 +69,4 @@ int main(int argc, char** argv) {
 free(CPU);
 system("pause");
 return 0;
-}        }
-        printf("Voici le tableau en EDF : \n");
-        EDF(&list, maxsched);
-        free_list(&list);
-    } 
-    else if (strcmp(algorithm, "EDF"))
-    {
-        printf("Voici le tableau en FP : \n");
-        FP(CPU, maxsched, thread);
-    } 
-    else 
-    {
-        printf("Erreur: Algorithme non reconnu");
-        return 1;
-    }
-return 0;
 }
