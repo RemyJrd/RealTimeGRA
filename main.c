@@ -7,9 +7,9 @@
 //TODO: Partie 2:
 // charge 
 // condition
-// busy period
+// busy periodgrd
 // revoir ce qui as été fait en TP2 par mail
-// gamma, lambda, 
+// gamma, lambda, frdgrdghdrghdghdrtgr
 // conditions nécessaire et suffisante
 // puis calcul beta
 // calcul busy period premiere racine positive wt... itération

@@ -14,7 +14,7 @@ double calculate_load(scheduling *CPU, int thread) {
 
 
 void FP(scheduling *CPU, int maxsched, int thread)
-{
+{drgdrg
     int *array;
     array = malloc(maxsched * sizeof(int));
     if (array ==NULL)
