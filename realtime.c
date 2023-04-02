@@ -50,27 +50,32 @@ void FP(scheduling *CPU, int maxsched, int thread)
     }
     
 
-void EDF(SortedJobList *job_list, int thread, scheduling *CPU) {
+int EDF(SortedJobList *job_list, int thread, scheduling *CPU) {
     int i = 1;
     Job *job;
     SortedJobList joblist = create_empty_list();
-    float U[thread], D[thread], W[thread];
+    float U=0.0, D=0.0, W=0.0;
 
     for (job = *job_list; job != NULL; job = job->next)
     {
         add_job(&joblist, job->id, job-> rc, job->d);
     }
 
-    compute_parameters(CPU, thread, U, D, W); // Ajout de l'appel à compute_parameters
+    compute_parameters(CPU, thread, &U, &D, &W); // Ajout de l'appel à compute_parameters
 
-    if (is_schedulable(CPU, thread, U, D, W))
+    if (is_schedulable(CPU, thread, &U, &D, &W))
     {
-        printf("Le systeme est faisable en EDF.\n");
+        printf("Le système est faisable en EDF.\n");
     }
     else
     {
-        printf("Le systeme n'est pas faisable en EDF.\n");
+        printf("Le système n'est pas faisable en EDF.\n");
+        return 1;
     }
+
+    printf("Charge CPU (U) : %.2f\n", U);
+    printf("Période d'occupation (B) : %.2f\n", (1.0 - U) * D);
+    printf("Nombre d'instances : %d\n", thread);
 
     while (i <= thread)
     {
@@ -85,7 +90,17 @@ void EDF(SortedJobList *job_list, int thread, scheduling *CPU) {
         i++;
     }
 
-   free(CPU);
+    float busy_period = W + ((1.0 - U) * D);
+    printf("busy period : : %.2f\n", busy_period);
+
+    for (int i = 0; i < thread; i++) {
+        float response_time = CPU[i].C + (float)(int)(busy_period / CPU[i].T) * CPU[i].C;
+        printf("Busy period for the task %d : %.2f\n", i + 1, response_time);
+    }
+
+    printf("Response time in worst case : %.2f\n", D + W);
+
+    free(CPU);
 }
 
 // En cours
@@ -94,7 +109,14 @@ void compute_parameters(scheduling *CPU, int thread, float *U, float *D, float *
     float max_D = 0.0;
     float max_W = 0.0;
 
-    for (int i = 0; i < thread; i++) {
+    for (int i = 0; i < thread-1; i++) {
+        printf("%d \n", thread);
+        printf("%d \n", CPU[i].T);
+        if (CPU[i].T == 0) {
+        printf("Erreur: La période (T) pour la tâche %d est égale à zéro.\n", i);
+        exit(0);
+        }
+
         float u = (float)CPU[i].C / (float)CPU[i].T;
         sum_U += u;
 
@@ -114,11 +136,21 @@ void compute_parameters(scheduling *CPU, int thread, float *U, float *D, float *
 }
 
 int is_schedulable(scheduling *CPU, int thread, float *U, float *D, float *W) {
+        printf("Charge CPU (U) : %f\n", *U);
+    printf("Période d'occupation maximale (D) : %f\n", *D);
+    printf("Taux d'utilisation maximale (W) : %f\n", *W);
+
+printf("U = %.2f, D = %.2f, W = %.2f\n", *U, *D, *W);
 float B = (1.0 - *U) * *D;
 float busy_period = *W + B;
+printf("B = %.2f, busy_period = %.2f\n", B, busy_period);
+
+   printf("Période d'occupation (B) : %f\n", B);
+    printf("Période chargée (busy_period) : %f\n", busy_period);
 
     for (int i = 0; i < thread; i++) {
-        float response_time = CPU[i].C + (float)(int)(busy_period / CPU[i].T) * CPU[i].C;
+        float response_time = CPU[i].C + (busy_period / CPU[i].T) * CPU[i].C;
+        printf("Tâche %d: Temps de réponse = %.2f\n", i + 1, response_time);
         if (response_time > CPU[i].D) {
             printf("Tâche %d non faisable en EDF : Temps de réponse (%.2f) > Deadline (%d)\n", i + 1, response_time, CPU[i].D);
             return 0;

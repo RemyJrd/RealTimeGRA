@@ -11,7 +11,6 @@ int main(int argc, char** argv) {
     scheduling *CPU;
 
     printf("filename: %s \n\n", filename);
-
     printf("Choosen Algorithm: %s \n\n", algorithm);
     printf("Max Schedulling: %d \n\n", maxsched);
 
@@ -24,11 +23,10 @@ int main(int argc, char** argv) {
         fscanf(file, "%d", &thread);
         printf("There is %d threads in the file, the file is composed of :\n", thread);
         CPU = malloc(sizeof(scheduling) * thread);
-        for (int i = 0; i < thread; i++)
-        {
+        for (int i = 0; i < thread; i++) {
             fscanf(file, "%d %d %d", &CPU[i].C, &CPU[i].D, &CPU[i].T);
-            printf("Thread %d: %d %d %d \n", i+1, CPU[i].C, CPU[i].D, CPU[i].T);
-        }
+            printf("Thread %d: C = %d, D = %d, T = %d\n", i + 1, CPU[i].C, CPU[i].D, CPU[i].T);
+}
     }
     else
     {
@@ -49,7 +47,7 @@ int main(int argc, char** argv) {
         printf("\n===========================================================================\n");
         printf("\n Here is the EDF array : \n\n");
         printf("|");
-        EDF(&list, maxsched, CPU);
+        EDF(&list, thread, CPU);
         printf("\n===========================================================================\n");
         free_list(&list);
     }
